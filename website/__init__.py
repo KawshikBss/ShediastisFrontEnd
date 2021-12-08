@@ -17,9 +17,13 @@ def create_app(config_filename):
     #create_db(app=app)
 
     from .views.index import index
+    from .views.view import view
+    from .auth.register import register
 
 
     app.register_blueprint(index, url_prefix='/')
+    app.register_blueprint(view, url_prefix='/')
+    app.register_blueprint(register, url_prefix='/')
 
     return app
 

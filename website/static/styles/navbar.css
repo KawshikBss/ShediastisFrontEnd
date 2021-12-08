@@ -1,0 +1,12 @@
+.container-fluid {
+	background-color: #6C63FF;
+}
+
+
+.nav-text {
+	color: #fff!important;
+}
+
+.nav-text:hover {
+	color: #3F3D56!important;
+}
