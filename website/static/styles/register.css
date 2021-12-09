@@ -1,0 +1,29 @@
+.container {
+    padding-top: 20px;
+    margin-top: 100px;
+    width: 20%;
+    align-items: stretch;
+    background-color: #3F3D56!important;
+    padding: 20px;
+    display: flex;
+    border-radius: 5%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+
+.progress-bar {
+    background-color: #6C63FF!important;
+}
+
+
+.form-input {
+    color: #fff!important;
+    padding: 10px;
+}
+
+
+.btn-sub {
+    background-color: #6C63FF;
+    color: #fff;
+}
