@@ -27,3 +27,13 @@
     background-color: #6C63FF;
     color: #fff;
 }
+
+
+a.anchor-link {
+    text-decoration: none;
+    color: #6C63FF;
+}
+
+a.anchor-link :visited {
+    color: #6C63FF;
+}

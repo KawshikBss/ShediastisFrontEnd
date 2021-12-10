@@ -1,40 +1,142 @@
-{% extends 'base.html' %}
+{%extends 'base.html'%}
 
-{% block title %}Register{% endblock %}
+{%block title%}Register{%endblock%}
 
-{% block content %}
+{%block content%}
 
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/register.css') }}">
 
+{%with messages = get_flashed_messages(with_categories=true)%}
+  {%if messages%}
+    {%for category, message in messages%}
+      {%if category == 'danger'%}
+        <div class="alert alert-danger" role="alert">
+          {{message}}
+        </div>
+      {%else%}
+      <div class="alert alert-success" role="alert">
+        {{message}}
+      </div>
+      {%endif%}
+    {%endfor%}
+  {%endif%}
+{%endwith%}
+
 <div class="container">
     <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar" id="progressbar" role="progressbar" style="width: 0%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
 	<form method="post" class="col g-3">
         <div class="col-auto form-input">
           <label for="staticEmail2" class="visually-hidden">FirstName</label>
-          <input type="text" class="form-control" name="first_name" placeholder="First Name">
+          <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name">
         </div>
         <div class="col-auto form-input">
           <label for="staticEmail2" class="visually-hidden">LastName</label>
-          <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+          <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name">
         </div>
         <div class="col-auto form-input">
           <label for="staticEmail2" class="visually-hidden">Email</label>
-          <input type="text" class="form-control" name="email" placeholder="Email">
+          <input type="text" class="form-control" name="email" id="email" placeholder="Email">
         </div>
         <div class="col-auto form-input">
           <label for="inputPassword2" class="visually-hidden">Password</label>
-          <input type="password" class="form-control" name="password" placeholder="Password">
+          <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
         <div class="col-auto form-input">
           <label for="inputPassword2" class="visually-hidden">Password</label>
-          <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
+          <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
         </div>
         <div class="col-auto form-input">
           <button type="submit" class="btn btn-sub mb-3">Register</button>
+        </div><div class="col-auto form-input">
+          <a class="anchor-link" href="#">Already Have an account? Login</a>
         </div>
     </form>
 </div>
+<script>
 
-{% endblock %}
+  function GetWidthOfProgress(progressbar) {
+    var width = ( 100 * parseFloat(progressbar.css('width')) / parseFloat(progressbar.parent().css('width')) );
+    return width;
+  }
+
+  $(document).ready(function(){
+
+    var progressbar = $('#progressbar')
+
+    var first_name = $('#first_name');
+    var last_name = $('#last_name');
+    var email = $('#email');
+    var password = $('#password');
+    var confirm_password = $('#confirm_password');
+
+    first_name.blur(function(e){
+      var fname = first_name.val();
+      var currWidth = GetWidthOfProgress(progressbar);
+      if (fname.length > 1) {
+        var targetwidth = currWidth + 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+      else {
+        var targetwidth = currWidth - 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+    });
+    
+    last_name.blur(function(e){
+      var lname = last_name.val();
+      var currWidth = GetWidthOfProgress(progressbar);
+      if (lname.length > 1) {
+        var targetwidth = currWidth + 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+      else {
+        var targetwidth = currWidth - 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+    });
+
+    email.blur(function(e){
+      var mail = first_name.val();
+      var currWidth = GetWidthOfProgress(progressbar);
+      if (mail.length > 1) {
+        var targetwidth = currWidth + 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+      else {
+        var targetwidth = currWidth - 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+    });
+
+    password.blur(function(e){
+      var pass = first_name.val();
+      var currWidth = GetWidthOfProgress(progressbar);
+      if (pass.length > 1) {
+        var targetwidth = currWidth + 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+      else {
+        var targetwidth = currWidth - 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+    });
+
+    confirm_password.blur(function(e){
+      var conPass = first_name.val();
+      var currWidth = GetWidthOfProgress(progressbar);
+      if (conPass.length > 1) {
+        var targetwidth = currWidth + 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+      else {
+        var targetwidth = currWidth - 20;
+        progressbar.css('width', targetwidth + '%');
+      }
+    });
+
+  })
+</script>
+
+{%endblock%}
