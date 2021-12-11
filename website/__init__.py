@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint
-from flask_login import login_manager
+from flask_login import LoginManager, login_manager
 from os import path
 from flask_sqlalchemy import SQLAlchemy
 
@@ -18,12 +18,26 @@ def create_app(config_filename):
 
     from .views.index import index
     from .views.view import view
+    from .views.dashboard import dashboard
     from .auth.register import register
+    from .auth.login import login
 
 
     app.register_blueprint(index, url_prefix='/')
     app.register_blueprint(view, url_prefix='/')
     app.register_blueprint(register, url_prefix='/')
+    app.register_blueprint(login, url_prefix='/')
+    app.register_blueprint(dashboard, url_prefix='/')
+
+    loginManager = LoginManager()
+    loginManager.login_view = 'login.login_page'
+    loginManager.init_app(app=app)
+
+    from .models.user import User
+
+    @loginManager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
     return app
 

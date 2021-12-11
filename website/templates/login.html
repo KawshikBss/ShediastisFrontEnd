@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+
+{%block title%}Login{%endblock%}
+
+{%block content%}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/register.css') }}">
+
+{%with messages = get_flashed_messages(with_categories=true)%}
+    {%if messages%}
+        {%for category, message in messages%}
+            {%if category == 'danger'%}
+                <div class="alert alert-danger" role="alert">
+                    {{message}}
+                </div>
+            {%else%}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                </div>
+        {%endif%}
+        {%endfor%}
+    {%endif%}
+{%endwith%}
+
+<div class="container">
+	<form method="post" class="col g-3">
+        <div class="col-auto form-input">
+          <label for="staticEmail2" class="visually-hidden">Email</label>
+          <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+        </div>
+        <div class="col-auto form-input">
+          <label for="inputPassword2" class="visually-hidden">Password</label>
+          <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+        </div>
+        <div class="col-auto form-input">
+          <button type="submit" class="btn btn-sub mb-3">Login</button>
+        </div><div class="col-auto form-input">
+          <a class="anchor-link" href="{{ url_for('register.registration') }}">Don't Have an account? Register</a>
+        </div>
+    </form>
+</div>
+
+{%endblock%}
