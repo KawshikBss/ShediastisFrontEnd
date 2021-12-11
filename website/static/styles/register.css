@@ -37,3 +37,15 @@ a.anchor-link {
 a.anchor-link :visited {
     color: #6C63FF;
 }
+
+a.login-red {
+    text-decoration: none;
+    color: #6C63FF;
+    background-color: #3F3D56;
+}
+
+a.login-red:visited {
+    text-decoration: none;
+    color: #6C63FF;
+    background-color: #3F3D56;
+}

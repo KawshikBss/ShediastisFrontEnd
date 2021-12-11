@@ -14,7 +14,7 @@ def create_app(config_filename):
     app.config.from_pyfile(config_filename)
 
     db.init_app(app=app)
-    #create_db(app=app)
+    create_db(app=app)
 
     from .views.index import index
     from .views.view import view
@@ -30,4 +30,5 @@ def create_app(config_filename):
 
 def create_db(app):
     if not path.exists(DB_NAME):
+        from .models.user import User
         db.create_all(app=app)

@@ -1,5 +1,7 @@
 from flask import Blueprint, request, flash
 from flask.templating import render_template
+from flask_login import login_manager, login_user
+from ..models.user import User
 from .. import db
 
 
@@ -29,6 +31,17 @@ def registration():
         elif confirm_password != password:
             flash(f'{confirm_password} does not match Password', category='danger')
         else:
-            flash('User created Successfully' + first_name + last_name + email + password)
-        
+            existing_user = User.query.filter_by(email=email).first()
+            if existing_user:
+                flash('Email is already in use by another account', category='danger')
+            else:
+                full_name = first_name + ' ' + last_name
+                try:
+                    user = User(full_name=full_name, email=email, password=password)
+                    db.session.add(user)
+                    db.session.commit()
+                    flash('User registered successfully')
+                except:
+                    flash('Internal server error, try again')
+            
     return render_template('register.html')
