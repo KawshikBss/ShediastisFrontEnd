@@ -1,0 +1,24 @@
+.wellcome-text {
+    margin: 20px 0px 20px 0px;
+    color: #fff;
+    font-size: 30pt;
+    text-align: center;
+}
+
+.wellcome-text h1 {
+    margin: 0 auto;
+    background-color: #6C63FF;
+    padding: 20px;
+    border-radius: 3%;
+    width: 500px;
+}
+
+.wellcome-text h1 a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.wellcome-text h1 a:hover {
+    text-decoration: dashed;
+    color: #3F3D56;
+}
