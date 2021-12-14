@@ -127,3 +127,25 @@
   color: #6C63FF;
   text-decoration: line-through;
 }
+
+.tasks + .completed .tasks-header {
+  background-color: #6C63FF!important;
+  background-image: none;
+  color: #fff!important;
+}
+
+.tasks + .trashed .tasks-header {
+  background-color: #FF6363!important;
+  background-image: none;
+  color: #fff!important;
+}
+
+.tasks + .trashed .tasks-list-cb:checked ~ .tasks-list-desc {
+  color: #FF6363;
+  text-decoration: line-through;
+}
+
+.tasks + .trashed .tasks-list-cb:checked ~ .tasks-list-mark {
+  border-color: #FF6363;
+  background-color: #FF6363;
+}

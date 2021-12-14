@@ -29,12 +29,31 @@
               <a class="nav-link nav-text" aria-current="page" href="{{ url_for('index.index_page') }}">Home</a>
               <a class="nav-link nav-text" href="{{ url_for('view.features') }}">Features</a>
               <a class="nav-link nav-text" href="{{ url_for('view.about') }}">About</a>
-              <a class="nav-link nav-text end-item" href="{{ url_for('login.login_page') }}">Login</a>
-              <a class="nav-link nav-text end-item" href="{{ url_for('register.registration') }}">Register</a>
+              {%if not user%}
+                <a class="nav-link nav-text end-item" href="{{ url_for('login.login_page') }}">Login</a>
+                <a class="nav-link nav-text end-item" href="{{ url_for('register.registration') }}">Register</a>
+              {%else%}
+                <a class="nav-link nav-text end-item" href="{{ url_for('login.login_page') }}">Logout</a>
+              {%endif%}
             </div>
           </div>
         </div>
     </nav>
+    {%with messages = get_flashed_messages(with_categories=true)%}
+    {%if messages%}
+        {%for category, message in messages%}
+            {%if category == 'danger'%}
+                <div class="alert alert-danger" role="alert">
+                    {{message}}
+                </div>
+            {%else%}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                </div>
+        {%endif%}
+        {%endfor%}
+    {%endif%}
+{%endwith%}
     {% block content %}
     {% endblock %}
     <script>

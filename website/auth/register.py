@@ -1,6 +1,5 @@
 from flask import Blueprint, request, flash
 from flask.templating import render_template
-from flask_login import login_manager, login_user
 from ..models.user import User
 from ..others.validation import validate_name_len, validate_email, validate_password
 from .. import db

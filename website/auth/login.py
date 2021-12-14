@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, url_for, flash
 from flask_login import login_manager, login_user
+from flask_login.utils import login_required, logout_user
 from werkzeug.utils import redirect
 from ..models.user import User
 from werkzeug.security import check_password_hash
@@ -33,3 +34,9 @@ def login_page():
                     flash('Incorrect password', category='danger')
 
     return render_template('login.html')
+
+@login.route('/logout/')
+def logout():
+    logout_user()
+    flash('User logged out')
+    return redirect(url_for('login.login_page'))

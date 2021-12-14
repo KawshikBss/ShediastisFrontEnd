@@ -3,7 +3,7 @@
 {% block content %}
 <link rel="stylesheet" href="{{url_for('static', filename='styles/tasks.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='styles/dashboard.css')}}">
-    <div class="wellcome-text"><h1>Wellcome Back, <a href="#">{{user.fullname}}</a><br>{{time}}</h1></div>
+    <div class="wellcome-text"><h1>Wellcome Back, <a href="#">{{user.fullname}}</a><div id="MyClockDisplay" class="clock" onload="showTime()"></div></div>
     <div class="container">
         <section class="tasks">
             <header class="tasks-header">
@@ -11,23 +11,74 @@
                 <a href="index.html" class="tasks-lists">Lists</a>
             </header>
             <fieldset class="tasks-list">
-                <label class="tasks-list-item">
-                    <input type="checkbox" name="task_1" value="1" class="tasks-list-cb" checked onclick="manageTask(1);">
-                    <span class="tasks-list-mark"></span>
-                    <span class="tasks-list-desc">Check This</span>
-                </label>
-                <label class="tasks-list-item">
-                    <input type="checkbox" name="task_2" value="1" class="tasks-list-cb" checked onclick="manageTask(1);">
-                    <span class="tasks-list-mark"></span>
-                    <span class="tasks-list-desc">Then This</span>
-                </label>
-                <label class="tasks-list-item">
-                    <input type="checkbox" name="task_3" value="1" class="tasks-list-cb" onclick="manageTask(1);">
-                    <span class="tasks-list-mark"></span>
-                    <span class="tasks-list-desc">And Go!</span>
-                </label>
+                {%if current_tasks%}
+                    {%for task in current_tasks%}
+                        <label class="tasks-list-item">
+                            <input type="checkbox" name="task_1" value="1" class="tasks-list-cb" onclick="manageTask('{{task.id}}');">
+                            <span class="tasks-list-mark"></span>
+                            <span class="tasks-list-desc">{{task}}</span>
+                        </label>
+                    {%endfor%}
+                {%else%}
+                    <label class="tasks-list-item" style="color: #fff;">
+                        No Tasks In This Category
+                    </label>
+                {%endif%}
             </fieldset>
           </section>
+
+          <!------------------Completedd tasks------------------------>
+
+          <section class="tasks completed">
+            <header class="tasks-header">
+                <h2 class="tasks-title">Completed Tasks</h2>
+                <a href="index.html" class="tasks-lists">Lists</a>
+            </header>
+            <fieldset class="tasks-list">
+                {%if completed_tasks%}
+                    {%for task in completed_tasks%}
+                        <label class="tasks-list-item">
+                            <input type="checkbox" name="task_1" value="1" class="tasks-list-cb" checked onclick="manageTask('{{task.id}}');">
+                            <span class="tasks-list-mark"></span>
+                            <span class="tasks-list-desc">{{task}}</span>
+                        </label>
+                    {%endfor%}
+                {%else%}
+                    <label class="tasks-list-item" style="color: #fff;">
+                        No Tasks In This Category
+                    </label>
+                {%endif%}
+            </fieldset>
+          </section>
+          
+          <!------------------------Missed Tasks--------------------------->
+
+          
+          <section class="tasks trashed">
+            <header class="tasks-header">
+                <h2 class="tasks-title">Trashed Tasks</h2>
+                <a href="index.html" class="tasks-lists">Lists</a>
+            </header>
+            <fieldset class="tasks-list">
+                {%if trashed_tasks%}
+                    {%for task in trashed_tasks%}
+                        <label class="tasks-list-item">
+                            <input type="checkbox" name="task_1" value="1" class="tasks-list-cb" checked onclick="manageTask('{{task.id}}');">
+                            <span class="tasks-list-mark"></span>
+                            <span class="tasks-list-desc">{{task}}</span>
+                        </label>
+                    {%endfor%}
+                {%else%}
+                    <label class="tasks-list-item" style="color: #fff;">
+                        No Tasks In This Category
+                    </label>
+                {%endif%}
+            </fieldset>
+          </section>
+    </div>
+    <div id="add-task-group" class="input-group mb-3">
+    <input name="task" id="taskDesc" type="text" class="form-control" placeholder="Enter Task" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <span class="input-group-text" id="basic-addon2" onclick="addTask()">Add Task</span>
     </div>
     <script>
         function manageTask(taskId) {
@@ -38,5 +89,44 @@
                 window.location.href = '{{url_for("dashboard.dashboard_page", user=user)}}';
             })
         }
+        function addTask() {
+            //s$('task')
+            var taskDesc = document.getElementById("taskDesc").value;
+            console.log(taskDesc);
+            fetch('/add_task/', {
+                method : 'POST',
+                body : JSON.stringify({task : taskDesc})
+            }).then((_res)=>{
+                window.location.href = '{{url_for("dashboard.dashboard_page", user=user)}}';
+            })
+        }
+        function showTime(){
+            var date = new Date();
+            var h = date.getHours(); // 0 - 23
+            var m = date.getMinutes(); // 0 - 59
+            var s = date.getSeconds(); // 0 - 59
+            var session = "AM";
+            
+            if(h == 0){
+                h = 12;
+            }
+            
+            if(h > 12){
+                h = h - 12;
+                session = "PM";
+            }
+            
+            h = (h < 10) ? "0" + h : h;
+            m = (m < 10) ? "0" + m : m;
+            s = (s < 10) ? "0" + s : s;
+            
+            var time = h + ":" + m + ":" + s + " " + session;
+            document.getElementById("MyClockDisplay").innerText = time;
+            document.getElementById("MyClockDisplay").textContent = time;
+            
+            setTimeout(showTime, 1000);
+            
+        }
+        showTime();
     </script>
 {% endblock %}

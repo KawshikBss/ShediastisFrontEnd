@@ -45,4 +45,5 @@ def create_app(config_filename):
 def create_db(app):
     if not path.exists(DB_NAME):
         from .models.user import User
+        from .models.task import Task
         db.create_all(app=app)

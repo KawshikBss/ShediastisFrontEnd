@@ -6,21 +6,7 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/register.css') }}">
 
-{%with messages = get_flashed_messages(with_categories=true)%}
-    {%if messages%}
-        {%for category, message in messages%}
-            {%if category == 'danger'%}
-                <div class="alert alert-danger" role="alert">
-                    {{message}}
-                </div>
-            {%else%}
-                <div class="alert alert-success" role="alert">
-                    {{message}}
-                </div>
-        {%endif%}
-        {%endfor%}
-    {%endif%}
-{%endwith%}
+
 
 <div class="container">
 	<form method="post" class="col g-3">

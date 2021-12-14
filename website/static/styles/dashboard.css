@@ -22,3 +22,27 @@
     text-decoration: dashed;
     color: #3F3D56;
 }
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+#add-task-group {
+    transform: translate(50%, -5px);
+    width: 50%;
+}
+
+#basic-addon2 {
+    background-color: #6C63FF;
+    color: #fff;
+}
+
+#basic-addon2:hover {
+    cursor: pointer;
+}
+
+#taskDesc {
+    background-color: #3F3D56;
+    color: #fff;
+}
