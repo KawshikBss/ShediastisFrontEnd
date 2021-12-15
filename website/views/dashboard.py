@@ -9,7 +9,7 @@ dashboard = Blueprint('dashboard', __name__)
 @dashboard.route('/dashboard/', methods=['POST', 'GET'])
 @login_required
 def dashboard_page():
-    if not current_user.is_authenticated:
+    if not current_user.is_authenticated or not current_user:
         flash('User is not authorized to use that page')
         return redirect(url_for('dashboard.dashboard_page'))
     current_tasks = current_user.get_current_tasks()

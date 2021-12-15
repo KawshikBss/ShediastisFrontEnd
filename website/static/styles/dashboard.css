@@ -9,7 +9,7 @@
     margin: 0 auto;
     background-color: #6C63FF;
     padding: 20px;
-    border-radius: 3%;
+    border-radius: 0.25rem;
     width: 500px;
 }
 
@@ -45,4 +45,29 @@
 #taskDesc {
     background-color: #3F3D56;
     color: #fff;
+}
+
+.task-info {
+    display: none;
+    padding: 10px;
+    border-radius: 0.25rem;
+    width: 50%;
+    transform: translate(50%);
+    text-align: center;
+    font-size: 30px;
+}
+
+#current_task_info {
+    color: #3F3D56;
+    background-color: #fff;
+}
+
+#completed_task_info {
+    color: #fff;
+    background-color: #6C63FF;
+}
+
+#trashed_task_info {
+    color: #fff;
+    background-color: #FF6363;
 }

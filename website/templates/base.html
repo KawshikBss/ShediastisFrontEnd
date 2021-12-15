@@ -20,15 +20,17 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="nav-text navbar-brand" href="#">Shediastis</a>
+          <a class="nav-text navbar-brand" href="{{ url_for('index.index_page') }}">Shediastis</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link nav-text" aria-current="page" href="{{ url_for('index.index_page') }}">Home</a>
-              <a class="nav-link nav-text" href="{{ url_for('view.features') }}">Features</a>
-              <a class="nav-link nav-text" href="{{ url_for('view.about') }}">About</a>
+              {%if current_page == 'index'%}
+                <a class="nav-link nav-text" href="#features">Features</a>
+                <a class="nav-link nav-text" href="#about">About</a>
+              {%endif%}
               {%if not user%}
                 <a class="nav-link nav-text end-item" href="{{ url_for('login.login_page') }}">Login</a>
                 <a class="nav-link nav-text end-item" href="{{ url_for('register.registration') }}">Register</a>
